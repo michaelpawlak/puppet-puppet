@@ -1,0 +1,12 @@
+#
+# 		File Controlled by Puppet
+# 		DO NOT EDIT ! ! !
+#
+
+[main]
+<% if @server -%>
+server  = <%= @server -%>
+<% else -%>
+server  = localhost
+<% end %>
+port    = <%= @port -%>

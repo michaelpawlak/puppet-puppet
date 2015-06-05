@@ -1,0 +1,39 @@
+#
+# 	This file is managed by Puppet
+# 	DO NOT EDIT ! ! !
+#
+
+<%  @config_hash.each do |key, value| -%>
+<%    if value.is_a?(Hash) -%>
+<%= key %>:
+<%      value.each do |key_a, value_a| -%>
+  <%= key_a %>:
+<%        if value_a.is_a?(Hash) -%>
+<%          value_a.each do |key_b, value_b| -%>
+<%            if value_b.is_a?(String) -%>
+    <%= key_b -%>: <%= value_b %>
+<%            elsif value_b.is_a?(Array) -%>
+    <%= key_b %>:
+<%              value_b.each do |v| -%>
+      - <%= v %>
+<%              end -%>
+<%            end -%>
+<%          end -%>
+<%        elsif value_a.is_a?(String) -%>
+  <%= key_a -%>: <%= value_a %>
+<%        elsif value_a.is_a?(Array) -%>
+  <%= key_a -%>:
+<%          value_a.each do |v| -%>
+    - <%= v %>
+<%          end -%>
+<%        end -%>
+<%      end -%>
+<%    elsif value.is_a?(String) -%>
+<%= key -%>: <%= value %>
+<%    elsif value.is_a?(Array) -%>
+<%= key -%>:
+<%      value.each do |v| -%>
+  - <%= v %>
+<%      end -%>
+<%    end -%>
+<%  end -%>

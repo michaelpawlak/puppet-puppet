@@ -1,0 +1,33 @@
+#
+# 	This file is managed by Puppet
+# 	DO NOT EDIT ! ! !
+#
+
+[main]
+confdir = <%= @confdir %>
+user = <%= @user %>
+group = <%= @group %>
+ssldir = <%= @ssldir %>
+vardir = <%= @vardir %>
+rundir = <%= @rundir %>
+<%  @options_hash.each do |key, value| -%>
+<%    if key == 'main' -%>
+<%      if value -%>
+<%        value.each do |key_a, value_a| -%>
+<%          if value_a.is_a?(String) or value_a.is_a?(Array) -%>
+<%= key_a -%> = <% if value_a.is_a?(String) -%><%= value_a %><% elsif value_a.is_a?(Array) -%><% value_a.each do |v| -%><%= v -%>,<% end %><% end %>
+<%          end -%>
+<%        end -%>
+<%      end -%>
+<%    else -%>
+
+[<%= key %>]
+<%      if value -%>
+<%        value.each do |key_a, value_a| -%>
+<%          if value_a.is_a?(String) or value_a.is_a?(Array) -%>
+<%= key_a -%> = <% if value_a.is_a?(String) -%><%= value_a %><% elsif value_a.is_a?(Array) -%><% value_a.each do |v| -%><%= v -%>,<% end %><% end %>
+<%          end -%>
+<%        end -%>
+<%      end -%>
+<%    end -%>
+<%  end -%>
